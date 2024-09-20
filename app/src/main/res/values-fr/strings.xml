@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Android Labs</string>
+    <string name="toast_message">Voici plus d'informations</string>
+    <string name="button_text">Cliquez ici</string>
+    <string name="checkbox_text">Vérifiez ceci !</string>
+    <string name="switch_text">Interrupteur activé / désactivé</string>
+    <string name="edittext_hint">Tapez ici</string>
+    <string name="textview_label">Regardez mon interface graphique :</string>
+</resources>
