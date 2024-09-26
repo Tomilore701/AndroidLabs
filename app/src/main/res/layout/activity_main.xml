@@ -5,14 +5,14 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <!-- Row 1: TextView with a large text -->
+
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="378dp"
         android:layout_height="wrap_content"
         android:text="@string/look_at_gui"
         android:textSize="30sp" />
 
-    <!-- Row 2: Button and CheckBox -->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -33,7 +33,7 @@
             android:text="@string/check_this_out" />
     </LinearLayout>
 
-    <!-- Row 3: ImageButton and Switch -->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
