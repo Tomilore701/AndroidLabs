@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.cst3104.androidlabs">  <!-- Update package name to match your project -->
+    package="com.cst3104.androidlabs">
 
     <application
         android:allowBackup="true"
@@ -7,13 +7,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar">
 
-        <!-- SecondActivity declaration -->
+
         <activity
             android:name=".SecondActivity"
             android:label="SecondActivity"
             android:exported="false" />
 
-        <!-- MainActivity declaration, set as launcher activity -->
+
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -25,7 +25,7 @@
 
     </application>
 
-    <!-- Add this permission to allow phone calls -->
+
     <uses-permission android:name="android.permission.CALL_PHONE" />
 
 </manifest>  <!-- Closing the manifest correctly here -->
