@@ -1,60 +1,72 @@
-package com.cst3104.androidlabs;  // Ensure this is the correct package name
+package com.cst3104.androidlabs;
 
+import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import androidx.appcompat.app.AppCompatActivity;
-
-import com.cst3104.androidlabs.R;  // Ensure your R file is correctly imported
 
 public class SecondActivity extends AppCompatActivity {
 
-    private SharedPreferences prefs;
+    private static final String TAG = "SecondActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_second);
+        setContentView(R.layout.activity_second2);
 
-        // Get the email address passed from MainActivity
+        // Retrieving the email address passed from MainActivity
         Intent fromPrevious = getIntent();
         String emailAddress = fromPrevious.getStringExtra("EmailAddress");
 
-        // Display the welcome message with the email
+        // Updating the TextView to display the welcome message with the email
         TextView welcomeTextView = findViewById(R.id.welcomeTextView);
         welcomeTextView.setText("Welcome back " + emailAddress);
 
-        // Retrieve saved phone number from SharedPreferences
-        prefs = getSharedPreferences("MyData", MODE_PRIVATE);
-        String savedPhoneNumber = prefs.getString("PhoneNumber", "");
-
+        // Setting up the Call button functionality
         EditText phoneEditText = findViewById(R.id.phoneEditText);
-        phoneEditText.setText(savedPhoneNumber);
-
-        // Handle the "Call number" button click
         Button callButton = findViewById(R.id.callButton);
+
         callButton.setOnClickListener(v -> {
             String phoneNumber = phoneEditText.getText().toString();
-
-            // Create an Intent to make a phone call
             Intent callIntent = new Intent(Intent.ACTION_DIAL);
-            callIntent.setData(android.net.Uri.parse("tel:" + phoneNumber));
+            callIntent.setData(Uri.parse("tel:" + phoneNumber));
             startActivity(callIntent);
         });
+
+        Log.w(TAG, "In onCreate() - SecondActivity initialized");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.w(TAG, "In onStart() - SecondActivity becoming visible");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.w(TAG, "In onResume() - SecondActivity interacting with user");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        // Save phone number when the activity goes off screen
-        EditText phoneEditText = findViewById(R.id.phoneEditText);
-        String phoneNumber = phoneEditText.getText().toString();
+        Log.w(TAG, "In onPause() - SecondActivity losing focus");
+    }
 
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putString("PhoneNumber", phoneNumber);
-        editor.apply();
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.w(TAG, "In onStop() - SecondActivity no longer visible");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.w(TAG, "In onDestroy() - SecondActivity being destroyed");
     }
 }
