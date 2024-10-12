@@ -70,3 +70,4 @@ public class SecondActivity extends AppCompatActivity {
         Log.w(TAG, "In onDestroy() - SecondActivity being destroyed");
     }
 }
+

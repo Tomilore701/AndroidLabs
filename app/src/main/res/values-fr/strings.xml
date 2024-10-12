@@ -1,9 +1,7 @@
 <resources>
-    <string name="app_name">Android Labs</string>
-    <string name="toast_message">Voici plus d\'informations</string>
-    <string name="look_at_gui">Cliquez ici</string>
-    <string name="click_here">Vérifiez ceci !</string>
-    <string name="check_this_out">Interrupteur activé / désactivé</string>
-    <string name="switch_on_off">Tapez ici</string>
-    <string name="type_here">Regardez mon interface graphique :</string>
+    <string name="app_name">Application de Chat</string>
+    <string name="send_button">Envoyer</string>
+    <string name="receive_button">Recevoir</string>
+    <string name="delete_prompt">Voulez-vous supprimer ceci?</string>
+    <string name="selected_row">La ligne sélectionnée est: </string>
 </resources>

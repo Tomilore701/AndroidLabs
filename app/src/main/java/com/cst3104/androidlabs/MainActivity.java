@@ -1,80 +1,76 @@
 package com.cst3104.androidlabs;
 
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
-import android.widget.Switch;
+import android.widget.ListView;
 
-import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
-import com.google.android.material.snackbar.Snackbar;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String TAG = "MainActivity";
+    private ListView listViewMessages;
+    private EditText editTextMessage;
+    private Button buttonSend, buttonReceive;
+    private ArrayList<Message> messageList;
+    private ChatAdapter chatAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Logging lifecycle event
-        Log.w(TAG, "In onCreate() - Loading Widgets");
+        listViewMessages = findViewById(R.id.listViewMessages);
+        editTextMessage = findViewById(R.id.editTextMessage);
+        buttonSend = findViewById(R.id.buttonSend);
+        buttonReceive = findViewById(R.id.buttonReceive);
 
-        // Getting the login button and setting an OnClickListener
-        Button loginButton = findViewById(R.id.loginButton);
-        loginButton.setOnClickListener(new View.OnClickListener() {
+        messageList = new ArrayList<>();
+        chatAdapter = new ChatAdapter(this, messageList);
+        listViewMessages.setAdapter(chatAdapter);
+
+        // Send button functionality
+        buttonSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Get the email input from EditText
-                EditText emailEditText = findViewById(R.id.emailEditText);
-                String email = emailEditText.getText().toString();
-
-                // Creating intent to move to SecondActivity
-                Intent nextPage = new Intent(MainActivity.this, SecondActivity.class);
-                // Passing the email to SecondActivity
-                nextPage.putExtra("EmailAddress", email);
-                startActivity(nextPage);
+                String message = editTextMessage.getText().toString();
+                if (!message.isEmpty()) {
+                    messageList.add(new Message(message, true)); // Sent message
+                    chatAdapter.notifyDataSetChanged();
+                    editTextMessage.setText("");
+                }
             }
         });
-    }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Log.w(TAG, "In onStart() - Activity becoming visible");
-    }
+        // Receive button functionality
+        buttonReceive.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String message = editTextMessage.getText().toString();
+                if (!message.isEmpty()) {
+                    messageList.add(new Message(message, false)); // Received message
+                    chatAdapter.notifyDataSetChanged();
+                    editTextMessage.setText("");
+                }
+            }
+        });
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Log.w(TAG, "In onResume() - Activity interacting with user");
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        Log.w(TAG, "In onPause() - Activity losing focus");
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        Log.w(TAG, "In onStop() - Activity no longer visible");
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Log.w(TAG, "In onDestroy() - Activity being destroyed");
+        // Long click to delete an item
+        listViewMessages.setOnItemLongClickListener((parent, view, position, id) -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+            builder.setTitle("Do you want to delete this?");
+            builder.setMessage("The selected row is: " + position);
+            builder.setPositiveButton("Yes", (dialog, which) -> {
+                messageList.remove(position);
+                chatAdapter.notifyDataSetChanged();
+            });
+            builder.setNegativeButton("No", null);
+            builder.show();
+            return true;
+        });
     }
 }

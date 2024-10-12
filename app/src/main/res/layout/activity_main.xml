@@ -5,45 +5,40 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <!-- TextView for email label -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Enter your email address"
-        android:textSize="18sp"
-        android:layout_marginBottom="8dp"/>
+
+    <ListView
+        android:id="@+id/listViewMessages"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:dividerHeight="1dp" />
 
 
     <EditText
-        android:id="@+id/emailEditText"
+        android:id="@+id/editTextMessage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Type email here"
-        android:inputType="textEmailAddress"
-        android:layout_marginBottom="16dp"/>
+        android:hint="Type Here"
+        android:inputType="text" />
 
-    <!-- TextView for password label -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Type your password"
-        android:textSize="18sp"
-        android:layout_marginBottom="8dp"/>
 
-    <!-- EditText for password input -->
-    <EditText
-        android:id="@+id/passwordEditText"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter your password"
-        android:inputType="textPassword"
-        android:layout_marginBottom="16dp"/>
+        android:orientation="horizontal">
 
-    <!-- Button to login -->
-    <Button
-        android:id="@+id/loginButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Login"/>
+        <Button
+            android:id="@+id/buttonSend"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="SEND" />
 
+        <Button
+            android:id="@+id/buttonReceive"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="RECEIVE" />
+    </LinearLayout>
 </LinearLayout>
